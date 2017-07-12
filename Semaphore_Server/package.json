@@ -1,0 +1,16 @@
+{
+    "name": "Semaphore Competition Server",
+    "version": "1.0.0",
+    "keywords": [
+        "util",
+        "functional",
+        "server",
+        "client",
+        "browser"
+    ],
+    "author": "Charles",
+    "contributors": [],
+    "dependencies": {
+        "async": "^2.5.0"
+    }
+}
