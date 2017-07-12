@@ -29,14 +29,14 @@ def FindE(m):#For the puzzle include the assumption that e is as small as possib
         if(Check_CoPrime(m,c)):
             return c
 
-def FindD(e,m):#This algorithm is lazy and does not use the extended eucledian algorithm but still works �\_(?)_/�
+def FindD(e,m):
     d=1
     while True:
         if((d*e)%m==1):
             return d
         d+=1
 
-def ModularExponentiation(n,e,mod):#So we can get answsers to those BIG numbers
+def ModularExponentiation(n,e,mod):
     if mod==1:
         return 0
     ans = 1
