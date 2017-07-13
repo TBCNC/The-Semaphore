@@ -14,7 +14,7 @@ var competitionOver = false;
 var winner="";
 //There should be a check with the sql server to see if there has already been some kind of addition in case the server goes down.
 
-var competitionStartDate = Date.now() + (60000)/6;
+var competitionStartDate;
 
 var portNum = 666;
 
@@ -33,10 +33,10 @@ var sqlConnection_write = mysql.createConnection({
    database:"websitetesting"
 });
 sqlConnection_read.connect(function(err){
-   if(err) throw err; 
+   if(err) throw err;
 });
 sqlConnection_write.connect(function(err){
-   if(err) throw err; 
+   if(err) throw err;
 });
 var competitionInfo;
 
@@ -91,7 +91,7 @@ function GetCompetitionInfo(competitionID,callback){
        competitionInfo.description=result[0].puzzle_description;
        competitionInfo.answer=result[0].Puzzle_Answer;
        competitionInfo.jackpot=result[0].Puzzle_Jackpot;
-       competitionInfo.author=result[0].Puzzle_Author;  
+       competitionInfo.author=result[0].Puzzle_Author;
        callback(competitionInfo);
     });
 }
@@ -140,11 +140,11 @@ function UpdateUserPoints(userID,pointAmount){
         var query1 = "UPDATE AccountInfo SET Account_Points="+accountPoints+" WHERE UID="+userID+";";
         var query2 = "UPDATE ranking_solo SET Rank_TotalWinnings="+winnings+" WHERE UID="+userID+";";
         sqlConnection_write.query(query1,function(err,result){
-           if(err) throw err; 
+           if(err) throw err;
         });
         sqlConnection_write.query(query2,function(err,result){
-           if(err) throw err; 
-        }); 
+           if(err) throw err;
+        });
     });
 }
 
@@ -154,9 +154,9 @@ var socketDictionary = {};//This willa hold the sockets and names of people who 
 
 var competitionTitle;
 var competitionTopic;
-var competitionDifficulty; 
+var competitionDifficulty;
 var competitionDescription;
-var competitionAnswer; 
+var competitionAnswer;
 var jackPotTotal;
 var competitionAuthor;
 GetLatestCompetitionID(function(result){
@@ -198,7 +198,7 @@ GetLatestCompetitionID(function(result){
        console.log("Jackpot:"+jackPotTotal);
        console.log("Author UID:"+competitionAuthor);
 
-    }); 
+    });
 });
 
 io.sockets.on('connection',function(socket){
@@ -216,20 +216,20 @@ io.sockets.on('connection',function(socket){
         socket.emit('startGame',{title:competitionTitle,compTopic:competitionTopic,compDifficulty:competitionDifficulty,compDescription:competitionDescription});
     }
     io.sockets.emit('counterUpdate',{players:currentUsers});
-    
+
     socket.on('socketName',function(data){
        console.log("Got socket name!");
        socketDictionary[socket]=data.name;
        console.log(socketDictionary[socket]);
     });
-    
+
     socket.on('disconnect',function(data){
         console.log("Someone disconnected! D:");
         delete socketDictionary[socket];
         currentUsers-=1;
         io.sockets.emit('counterUpdate',{players:currentUsers});
     });
-    
+
     socket.on('answer',function(data){
        console.log(socketDictionary[socket] + " has submitted an answer of "+data.answer);
        //Prevent exploits with the following if statement. This prevents anyone submitting an answer before or after the competition.
@@ -246,15 +246,11 @@ io.sockets.on('connection',function(socket){
                UpdateUserPoints(data,jackPotTotal);
                console.log("Updated points.");
             });
-            
+
         } else{
             console.log("Answer was wrong!");
             socket.emit('wrongAnswer',{});
         }
     }});
-    socket.on('addToJackpot',function(data){
-       console.log(socketDictionary[socket] + " has added " + data.points + " to the jackpot!");
-       //Maybe have an sql table for the competitions
-    });
-    
+
 });
