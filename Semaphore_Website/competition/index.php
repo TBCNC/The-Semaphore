@@ -115,7 +115,10 @@
               <script>
                   //Here we are going to connect to the server, or at least attempt to.
                   jQuery(function($){
-                    var socket = io.connect("http://82.39.29.160:666");//Replace this with the domain name when I register it and set up the server.
+                    var socketServer = "http://"+<?php
+                                echo $_SERVER["SERVER_NAME"];
+                        ?>+":666";
+                    var socket = io.connect(socketServer);
                     var titleBox = $('#competitionTitle');
                     var topicBox = $('#competitionTopic');
                     var difficultyBox = $('#competitionDifficulty');
