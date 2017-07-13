@@ -172,7 +172,7 @@ echo $sesMan->GetCurrentUsername();
                         console.log("Someone has won!");
                         answerBox.hide();
                         resultBox.hide();
-                        descriptionBox.html(data.name + " has solved the puzzle!<br>The answer was "+data.answer+"!<br>"+data.name+" has won a jackpot of "+data.jackpot +" points!<br>Thank you for participating!");//Later on make it so the name is a link to the profile using AJAX
+                        descriptionBox.html(data.name + " has solved the puzzle!<br>The answer was "+data.answer+"!<br>"+data.name+" has won a jackpot of "+data.jackpot +" points!<br>Thank you for participating!");
                     });
                     socket.on('wrongAnswer',function(data){
                         resultBox.html("That answer is wrong! Try again.");
