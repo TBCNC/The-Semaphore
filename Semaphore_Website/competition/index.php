@@ -115,9 +115,8 @@
               <script>
                   //Here we are going to connect to the server, or at least attempt to.
                   jQuery(function($){
-                    var socketServer = "http://"+<?php
-                                echo $_SERVER["SERVER_NAME"];
-                        ?>+":666";
+                    var mainServer = "<?php echo $_SERVER["SERVER_NAME"]; ?>";
+                    var socketServer = "http://"+mainServer+":666";
                     var socket = io.connect(socketServer);
                     var titleBox = $('#competitionTitle');
                     var topicBox = $('#competitionTopic');
