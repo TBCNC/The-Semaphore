@@ -10,3 +10,5 @@ The theme that was used for this website is from https://startbootstrap.com/temp
 I have used many different packages written by other members of the community such as socket.io and mysql, the code for these can be found in the node_modules folder under Semaphore_Server. The code in the node_modules server is NOT mine.
 
 All other code however is of my property unless stated otherwise in comments.
+
+The paper for this project can be found here: https://docs.google.com/document/d/1ENsq-GgeKg-MpmL0kT70usDYHJ1a3j5BuqrukP5qJ78/edit
